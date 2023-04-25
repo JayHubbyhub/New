@@ -3,9 +3,17 @@
 {% block title %}Tree Details{% endblock %}
 
 {% block content %}
+    <h1>Tree {{treeindex}} Details</h1>
+    <a href="/trees/newTreeRecord/?treeindex={{ treeindex }}"> <button>Submit a Tree</button> </a>
+    <button onclick="window.location.href='../../trees/treeRecords';">Back to Tree Records</button>
     {% for tree in trees %}
-        <h1>Tree {{tree.treeID}} Details</h1>
         <ul>
+            {% if tree.tree_image %}
+                <li><b>Tree Picture:</b></li>
+                <img src="{{tree.tree_image.url}}">
+            {% else %}
+                <li><b>No Picture: </b></li>
+            {% endif %}
             <li>Section: {{ tree.section }}</li>
             <li>Age: {{ tree.age }}</li>
             <li>Variety: {{ tree.variety }}</li>
@@ -17,13 +25,52 @@
             <li>Pest/Disease Outbreaks: {{ tree.pest_disease_outbreaks }}</li>
             <li>Harvest Time: {{ tree.harvestTime }}</li>
             <li>Harvest Date: {{ tree.harvestDate }}</li>
-            {% if tree.tree_image %}
-                <li><b>Tree Picture:</b></li>
-                <img width="250" height="250" src="{{tree.tree_image.url}}">
-            {% endif %}
         </ul>
+    {% empty %}
+        <h2>No trees yet, submit one</h2>
     {% endfor %}
-    <a href="/trees/newTreeRecord"> <button>Submit a Tree</button> </a>
-    <button onclick="window.location.href='../../trees/treeRecords';">Back to Tree Records</button>
+
+    {% comment %} <table border="1">
+        <thead>
+            <tr>
+                <th>Singular_Tree_Picture</th>
+                <th>Section</th>
+                <th>Age</th>
+                <th>Variety</th>
+                <th>Soil Moisture</th>
+                <th>Temperature</th>
+                <th>Humidity</th>
+                <th>Light Exposure</th>
+                <th>Nutrient Levels</th>
+                <th>Pest/Disease Outbreaks</th>
+                <th>Harvest Time</th>
+                <th>Harvest Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tree in trees %}
+                <tr>
+                    <td>
+                        {% if tree.tree_image %}
+                            <img width="250" height="250" src="{{tree.tree_image.url}}">
+                        {% else %}
+                            No Picture
+                        {% endif %}
+                    </td>
+                    <td>{{ tree.section }}</td>
+                    <td>{{ tree.age }}</td>
+                    <td>{{ tree.variety }}</td>
+                    <td>{{ tree.soil_moisture }}</td>
+                    <td>{{ tree.temperature }}</td>
+                    <td>{{ tree.humidity }}</td>
+                    <td>{{ tree.light_exposure }}</td>
+                    <td>{{ tree.nutrient_levels }}</td>
+                    <td>{{ tree.pest_disease_outbreaks }}</td>
+                    <td>{{ tree.harvestTime }}</td>
+                    <td>{{ tree.harvestDate }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table> {% endcomment %}
     <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% endblock %}

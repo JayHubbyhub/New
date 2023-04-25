@@ -5,6 +5,10 @@
   {% for tree in all_tree_records %}
     <li><a href="/trees/{{tree.treeID}}"><b>Tree: </b>{{tree.treeID}}</a></li>
     <br>
+  {% empty %}
+  <h2>No trees yet, submit one using QR code</h2>
+  <a href='https://drive.google.com/drive/mobile/folders/1nJA-afVOxQ-nIsz6fQRDxfdAKlj5qYD1?usp=share_link'; target="_blank"><button>QR Codes</button></a>
+  <br>
   {% endfor %}
   <button onclick="window.location.href='../../';">Back to Homepage</button>
   <p><a href="{% url 'logout' %}">Log Out</a></p>

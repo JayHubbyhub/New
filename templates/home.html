@@ -4,6 +4,9 @@
 
 {% block content %}
     <h1>Welcome to the Cacao App homepage</h1>
+    <h2>Scan QR code to submit a completely new tree</h2>
+    <a href='https://drive.google.com/drive/mobile/folders/1nJA-afVOxQ-nIsz6fQRDxfdAKlj5qYD1?usp=share_link'; target="_blank"><button>QR Codes</button></a>
+    <br>
     <button onclick="window.location.href='../../trees/treeRecords/';">View Trees</button>
     <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% endblock %}

@@ -7,8 +7,13 @@ from django.views import View
 from django.http import HttpResponse
 import qrcode
 from io import BytesIO
+from django.views.generic import ListView
 
 # Create your views here.
+class TreeListView(ListView):
+    model = Tree
+    template_name = 'trees/tree_list.html'
+
 class treeRecords(View):
     template = "treeRecords.html"
     def get(self, request):
@@ -19,34 +24,20 @@ class treeRecords(View):
         return render(request, "trees/treeRecords.html", context)
     
 def newTreeRecord(request):
+    treeindex = request.GET.get('treeindex')
     if request.method == "POST":
-        tree_record_form = TreeRecordForm(request.POST, request.FILES)
+        tree_record_form = TreeRecordForm(treeindex, request.POST, request.FILES)
         if tree_record_form.is_valid():
             tree_record_form.save()
-            return redirect("trees:newTreeRecord")
-        else:
-            tree_record_form = TreeRecordForm()
-    return render(request, "trees/add.html", {"tree_record_form": TreeRecordForm})
-
-def generate_qr(request, data):
-    # Construct the URL to redirect to
-    redirect_url = request.build_absolute_uri('/trees/treeRecords/')
-    
-    # Append the redirect URL to the data
-    data_with_url = f"{data} {redirect_url}"
-    
-    # Generate the QR code image
-    qr = qrcode.QRCode(version=1, box_size=10, border=5)
-    qr.add_data(data_with_url)
-    qr.make(fit=True)
-    img = qr.make_image(fill_color='black', back_color='white')
-    
-    # Return the image as an HTTP response
-    response = HttpResponse(content_type='image/png')
-    img.save(response, 'PNG')
-    return response
+            return redirect("trees:treeRecords")
+    else:
+        tree_record_form = TreeRecordForm(treeindex)
+    return render(request, "trees/add.html", {"tree_record_form": tree_record_form})
 
 def tree_details(request, treeindex):
-    trees = Tree.objects.filter(treeID=treeindex)
-    context = {'trees': trees}
+    trees = Tree.objects.filter(treeID=treeindex).order_by('harvestDate')
+    context = {
+        'trees': trees,
+        'treeindex': treeindex,
+        }
     return render(request, 'tree_details.html', context)

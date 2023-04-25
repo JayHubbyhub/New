@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Tree(models.Model):
-    treeID = models.CharField(max_length=100, null=True)
+    treeID = models.IntegerField(null=True)
     section = models.CharField(max_length=100)
     age = models.CharField(max_length=500)
     variety = models.CharField(max_length=500)
