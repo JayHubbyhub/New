@@ -1,0 +1,28 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>{% block title %}Base{% endblock %}</title>
+</head>
+<body>
+  <main>
+    {% if user.is_authenticated %}
+        {% block content %}
+        {% endblock %}
+        {% if user.is_staff %}
+          <p style="color:rgb(78, 216, 80)">Logged in as Admin: {{request.user.username}}</p>
+        {% else %}
+          <p style="color:rgb(78, 216, 80)">Logged in as User: {{request.user.username}}</p>
+        {% endif %}
+    {% else %}
+        <p>You are not logged in</p>
+        <a href="{% url 'login' %}">Log In</a>
+    {% endif %}
+  </main>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <center><h1>Inventory of Cacao Trees</h1></center>
+  {% for tree in all_tree_records %}
+    <li><a href="/trees/{{tree.treeID}}"><b>Tree: </b>{{tree.treeID}}</a></li>
+    <br>
+  {% endfor %}
+  <button onclick="window.location.href='../../';">Back to Homepage</button>
+  <p><a href="{% url 'logout' %}">Log Out</a></p>
+  {% endblock %}
+  

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+    <h1>Welcome to the Cacao App homepage</h1>
+    <button onclick="window.location.href='../../trees/treeRecords/';">View Trees</button>
+    <p><a href="{% url 'logout' %}">Log Out</a></p>
+{% endblock %}

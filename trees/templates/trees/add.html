@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block head %}
+  {% comment %} {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'items/style.css' %}"> {% endcomment %}
+{% endblock %}
+
+{% block content %}
+  <h1> New Tree </h1>
+  <form action="{% url 'trees:newTreeRecord' %}" method ="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{tree_record_form.as_p}}
+    <button class="button" type="submit">Submit Tree Record</button>
+  </form>
+  <a href="/trees/treeRecords/"> <button>Back to Tree Records</button> </a>
+  <p><a href="{% url 'logout' %}">Log Out</a></p>
+{% endblock %}

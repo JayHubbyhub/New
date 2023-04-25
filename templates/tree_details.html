@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Tree Details{% endblock %}
+
+{% block content %}
+    {% for tree in trees %}
+        <h1>Tree {{tree.treeID}} Details</h1>
+        <ul>
+            <li>Section: {{ tree.section }}</li>
+            <li>Age: {{ tree.age }}</li>
+            <li>Variety: {{ tree.variety }}</li>
+            <li>Soil Moisture: {{ tree.soil_moisture }}</li>
+            <li>Temperature: {{ tree.temperature }}</li>
+            <li>Humidity: {{ tree.humidity }}</li>
+            <li>Light Exposure: {{ tree.light_exposure }}</li>
+            <li>Nutrient Levels: {{ tree.nutrient_levels }}</li>
+            <li>Pest/Disease Outbreaks: {{ tree.pest_disease_outbreaks }}</li>
+            <li>Harvest Time: {{ tree.harvestTime }}</li>
+            <li>Harvest Date: {{ tree.harvestDate }}</li>
+            {% if tree.tree_image %}
+                <li><b>Tree Picture:</b></li>
+                <img width="250" height="250" src="{{tree.tree_image.url}}">
+            {% endif %}
+        </ul>
+    {% endfor %}
+    <a href="/trees/newTreeRecord"> <button>Submit a Tree</button> </a>
+    <button onclick="window.location.href='../../trees/treeRecords';">Back to Tree Records</button>
+    <p><a href="{% url 'logout' %}">Log Out</a></p>
+{% endblock %}
