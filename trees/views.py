@@ -35,7 +35,7 @@ def newTreeRecord(request):
     return render(request, "trees/add.html", {"tree_record_form": tree_record_form})
 
 def tree_details(request, treeindex):
-    trees = Tree.objects.filter(treeID=treeindex).order_by('harvestDate')
+    trees = Tree.objects.filter(treeID=treeindex).order_by('-harvestDate')
     context = {
         'trees': trees,
         'treeindex': treeindex,
